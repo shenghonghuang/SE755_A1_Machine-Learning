@@ -36,7 +36,7 @@ worldcup.describe()
 # 2.1 提取前26列用作Features
 w_features=worldcup.iloc[:,np.arange(26)].copy()
 # 2.2 提取score作为regression的Target
-w_goals=worldcup.iloc[:,26].copy()
+w_scores=worldcup.iloc[:,26].copy()
 # 2.3 提取result作为regression的Target
 w_results=worldcup.iloc[:,27].copy()
 
@@ -87,7 +87,7 @@ full_pipeline = FeatureUnion(transformer_list=[
 # each feature roughly has the same of arranging varing arranged. so they have very similar values here
 # finally get the feature prepared, so this feature prepared will be further fed into the machine learning process, into testing and the training, and a further split the training into validation and the subtraining data
 feature_prepared = pd.DataFrame(data=full_pipeline.fit_transform(w_features),index=np.arange(1,65))
-worldcup_cleaned=pd.concat([feature_prepared,w_goals.to_frame(), w_results.to_frame()], axis=1)
+worldcup_cleaned=pd.concat([feature_prepared,w_scores.to_frame(), w_results.to_frame()], axis=1)
 
 
 
