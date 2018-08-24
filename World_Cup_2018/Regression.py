@@ -82,20 +82,29 @@ full_pipeline = FeatureUnion(transformer_list=[
 # finally get the feature prepared, so this feature prepared will be further fed into the machine learning process, into testing and the training, and a further split the training into validation and the subtraining data
 feature_prepared = pd.DataFrame(data=full_pipeline.fit_transform(w_features),index=np.arange(1,65))
 worldcup_cleaned=pd.concat([feature_prepared,w_scores.to_frame(), w_results.to_frame()], axis=1)
-
-
+dt_df = pd.DataFrame(feature_prepared,dtype=np.float64)
 
 #回归部分#回归部分#回归部分#回归部分#回归部分#回归部分#回归部分#回归部分#回归部分
+from sklearn import datasets
+
+# 这段是我在学习建模时候用的，与作业csv文件无关
+diabetes = datasets.load_diabetes()
+# Use only one feature
+diabetes_X = diabetes.data[:, [2]]
+#one target attribute
+diabetes_y=diabetes.target
+
+
 #######################################################version 1#############################################################
 # Use only one feature
 # 2 从总数据中提取所需要的数据
-w_X=feature_prepared.iloc[:,3].copy()
+w_x=feature_prepared.iloc[:,2].copy()
 #one target attribute
 w_y=w_scores
 
 # Split the data into training/testing sets
 w_X_train, w_X_test,w_y_train,w_y_test= \
-train_test_split(w_X,w_y,test_size=0.2,random_state=1)
+train_test_split(w_x,w_y,test_size=0.2,random_state=1)
 
 # Create linear regression object
 regr = linear_model.LinearRegression()
@@ -133,3 +142,58 @@ plt.yticks(np.arange(500,step=100))
 plt.show()
 
 #######################################################version 2#############################################################
+# 这部分是我利用多个特征学习方法，可以通过建模
+# 数据library内置，与作业无关，需要用作业的数据
+# Use two features
+diabetes_X = diabetes.data[:, [3,2]]
+
+#one target attribute
+diabetes_y=diabetes.target
+
+# Split the data into training/testing sets
+diabetes_X_train, diabetes_X_test,diabetes_y_train,diabetes_y_test= \
+train_test_split(diabetes_X,diabetes_y,test_size=0.2,random_state=1)
+
+
+
+# Create linear regression object
+regr = linear_model.LinearRegression()
+
+# Train the model using the training sets
+regr.fit(diabetes_X_train, diabetes_y_train)
+
+# Make predictions using the testing set
+diabetes_y_pred = regr.predict(diabetes_X_test)
+
+# The coefficients
+print('Coefficients and Intercept are: ', regr.coef_,"   ",regr.intercept_,' respectively')
+# The mean squared error
+print("Mean squared error: %.2f"
+      % mean_squared_error(diabetes_y_test, diabetes_y_pred))
+# Explained variance score: 1 is perfect prediction
+print('Variance score: %.2f' % r2_score(diabetes_y_test, diabetes_y_pred))
+
+#Plot outputs
+fig = plt.figure(1, figsize=(9, 6))
+ax = Axes3D(fig)
+#plot testing points
+ax.scatter(diabetes_X_test[:,0], diabetes_X_test[:,1],diabetes_y_test,depthshade=False,c='black')
+
+
+x = np.arange(-0.2, 0.2, 0.05)
+N = x.size
+a,b = np.meshgrid(x,x)
+it = np.array([b.ravel(),a.ravel(),np.ones(N*N)]).T
+w=np.append(regr.coef_,regr.intercept_)
+result=it.dot(w)
+#plot fitted hyperplane
+ax.plot_surface(np.reshape(it[:,0],(N,N)), np.reshape(it[:,1],(N,N)), np.reshape(result,(N,N)),shade=False,color=(0.,1.,0.,0.2))
+#set axis 
+ax.set_title("Two features regression")
+ax.set_xlabel("4th feature")
+ax.w_xaxis.set_ticklabels([])
+ax.set_ylabel("3rd feature")
+ax.w_yaxis.set_ticklabels([])
+ax.set_zlabel("target")
+ax.w_zaxis.set_ticklabels(np.arange(500,step=100))
+plt.show()
