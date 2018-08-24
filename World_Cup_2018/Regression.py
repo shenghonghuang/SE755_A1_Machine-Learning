@@ -7,19 +7,10 @@ Created on Wed Aug 22 16:50:29 2018
 
 
 import pandas as pd
-import numpy as np
-from sklearn.preprocessing import Imputer
-from sklearn.base import BaseEstimator, TransformerMixin
-from sklearn.pipeline import Pipeline
-from sklearn.preprocessing import StandardScaler
-from sklearn import preprocessing
-from sklearn.pipeline import FeatureUnion
 import matplotlib.pyplot as plt
 from sklearn import linear_model
 from sklearn.model_selection import train_test_split
-from sklearn import linear_model
 from sklearn.metrics import mean_squared_error, r2_score
-from sklearn.preprocessing import OneHotEncoder
 
 pd.set_option('max_colwidth',200)
 
@@ -80,7 +71,7 @@ p1=plt.scatter(range(len(x_test)), y_test,  color='black')
 #用predic预测，这里预测输入x对应的值，进行画线
 p2=plt.plot(range(len(x_test)), y_predict, color='red', linewidth=1)
 plt.legend(["predict", "true"], loc='upper right')
-plt.title('LinearRegression')
+plt.title('Ordinary Regression')
 plt.show()
 # The mean squared error
 print('_________________###################____________________')
