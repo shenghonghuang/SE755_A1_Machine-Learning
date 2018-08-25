@@ -93,7 +93,7 @@ from sklearn import svm,datasets
 clf = svm.SVC()
 multi_target_clf = MultiOutputClassifier(clf)  # 构建多输出多分类器
 y_pred = multi_target_clf.fit(x_train, y_train).predict(x_test)
-print('SVM')
+print('SVM:')
 print(classification_report(y_test,y_pred))
 
 #===================Decision Trees=========================
@@ -102,7 +102,7 @@ from sklearn import tree
 clf = tree.DecisionTreeClassifier()
 multi_target_clf = MultiOutputClassifier(clf)  # 构建多输出多分类器
 y_pred = multi_target_clf.fit(x_train, y_train).predict(x_test)
-print('Decision Tree')
+print('Decision Tree:')
 print(classification_report(y_test,y_pred))
 
 #=================== Nearest neighbour classifier=========================
@@ -111,7 +111,7 @@ from sklearn.neighbors import KNeighborsClassifier
 clf = KNeighborsClassifier()
 multi_target_clf = MultiOutputClassifier(clf)  # 构建多输出多分类器
 y_pred = multi_target_clf.fit(x_train, y_train).predict(x_test)
-print('Nearest neighbour classifier')
+print('Nearest Neighbour classifier:')
 print(classification_report(y_test,y_pred))
 
 #===================  Naïve Bayes classifier=========================
@@ -120,6 +120,6 @@ from sklearn.naive_bayes import GaussianNB
 clf = GaussianNB()
 multi_target_clf = MultiOutputClassifier(clf)  # 构建多输出多分类器
 y_pred = multi_target_clf.fit(x_train, y_train).predict(x_test)
-print('Naive Bayes classifier')
+print('Naive Bayes classifier:')
 print(classification_report(y_test,y_pred))
 
