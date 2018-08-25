@@ -5,61 +5,64 @@ Created on Sat Aug 11 13:27:20 2018
 @author: HSH
 """
 
-import pandas as pd
-import numpy as np
-from sklearn.preprocessing import Imputer
-from sklearn.base import BaseEstimator, TransformerMixin
-from sklearn.pipeline import Pipeline
-from sklearn.preprocessing import StandardScaler
-import category_encoders as cs
-from sklearn.pipeline import FeatureUnion
+import  pandas as pd
+from sklearn.model_selection import train_test_split
+from sklearn.metrics import classification_report
+from sklearn.utils import shuffle
 
-lantsat=pd.read_csv(r'D:\Projects\755\SE755_A1_Machine-Learning\Landsat\lantsat_preprocessing.py',index_col=0)
-#match date is assumed to be irrelevant for the match results
-lantsat.drop(['Date','Team1_Ball_Possession(%)'],axis=1,inplace=True)
-lantsat.describe()
+lantsat=pd.read_csv('lantsat.csv',header=None)
+print(lantsat.head(5))
+print(lantsat.columns)
 
-#lantsat attributes
-w_features=lantsat.iloc[:,np.arange(26)].copy()
-#lantsat goal result
-w_goals=lantsat.iloc[:,26].copy()
-#lantsat match result
-w_results=lantsat.iloc[:,27].copy()
+lantsat = shuffle(lantsat)
+x=lantsat.loc[:,range(36)].values
+y=lantsat[[36]].values
 
 
-# Create a class to select numerical or categorical columns 
-# since Scikit-Learn doesn't handle DataFrames in this wise manner yet
-class DataFrameSelector(BaseEstimator, TransformerMixin):
-    def __init__(self, attribute_names):
-        self.attribute_names = attribute_names
-    def fit(self, X, y=None):
-        return self
-    def transform(self, X):
-        return X[self.attribute_names].values
-#  w_features_num: numerical features
-#  w_features_cat: categorical features 
-w_features_num = w_features.drop(['Location','Phase','Team1','Team2','Team1_Continent','Team2_Continent','Normal_Time'], axis=1,inplace=False)
-w_features_cat=w_features[['Location','Phase','Team1','Team2','Team1_Continent','Team2_Continent','Normal_Time']].copy()
+#为了评价模型的性能，我们将数据分成训练集和测试集，用测试集评价模型
+x_train, x_test,y_train,y_test= train_test_split(x,y,test_size=0.2,random_state=1)
+# #===================Perceptron=========================
+from sklearn.multioutput import MultiOutputClassifier
+from sklearn.linear_model import Perceptron
+ppn = Perceptron(n_iter=40, eta0=0.1, random_state=0)  #y=w.x+b
+multi_target_ppn = MultiOutputClassifier(ppn)  # 构建多输出多分类器
+y_pred = multi_target_ppn.fit(x_train, y_train).predict(x_test)
+print('Perceptron:')
+print(classification_report(y_test,y_pred))
 
+# #===================SVM=========================
+from sklearn.multioutput import MultiOutputClassifier
+from sklearn import svm,datasets
+#调用SVC()
+clf = svm.SVC()
+multi_target_clf = MultiOutputClassifier(clf)  # 构建多输出多分类器
+y_pred = multi_target_clf.fit(x_train, y_train).predict(x_test)
+print('SVM:')
+print(classification_report(y_test,y_pred))
 
-num_pipeline = Pipeline([
-        ('selector', DataFrameSelector(list(w_features_num))),
-        ('imputer', Imputer(strategy="median")),
-        ('std_scaler', StandardScaler()),
-    ])
+#===================Decision Trees=========================
+from sklearn.multioutput import MultiOutputClassifier
+from sklearn import tree
+clf = tree.DecisionTreeClassifier()
+multi_target_clf = MultiOutputClassifier(clf)  # 构建多输出多分类器
+y_pred = multi_target_clf.fit(x_train, y_train).predict(x_test)
+print('Desicion Tree:')
+print(classification_report(y_test,y_pred))
 
-cat_pipeline = Pipeline([
-        ('selector', DataFrameSelector(list(w_features_cat))),
-        ('cat_encoder', cs.OneHotEncoder(drop_invariant=True)),
-    ])
+#=================== Nearest neighbour classifier=========================
+from sklearn.multioutput import MultiOutputClassifier
+from sklearn.neighbors import KNeighborsClassifier
+clf = KNeighborsClassifier()
+multi_target_clf = MultiOutputClassifier(clf)  # 构建多输出多分类器
+y_pred = multi_target_clf.fit(x_train, y_train).predict(x_test)
+print('Nearest neighbour classifier')
+print(classification_report(y_test,y_pred))
 
-
-
-full_pipeline = FeatureUnion(transformer_list=[
-        ("num_pipeline", num_pipeline),
-        ("cat_pipeline", cat_pipeline),
-    ])
-
-
-feature_prepared = pd.DataFrame(data=full_pipeline.fit_transform(w_features),index=np.arange(1,65))
-lantsat_cleaned=pd.concat([feature_prepared,w_goals.to_frame(), w_results.to_frame()], axis=1)
+#===================  Naïve Bayes classifier=========================
+from sklearn.multioutput import MultiOutputClassifier
+from sklearn.naive_bayes import GaussianNB
+clf = GaussianNB()
+multi_target_clf = MultiOutputClassifier(clf)  # 构建多输出多分类器
+y_pred = multi_target_clf.fit(x_train, y_train).predict(x_test)
+print('Naive Bayes classifier')
+print(classification_report(y_test,y_pred))
