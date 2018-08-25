@@ -23,13 +23,13 @@ worldcup.describe()
 #将文字转换成数值型的
 
 #先统计一下位置信息
-Location=worldcup['Location'].unique()#15 总共15个位置信息，如果进行one-hot编码的话，太多了，舍弃掉
+Location=worldcup['Location'].unique()
 print('Location={0}'.format(len(Location)))
 #
 Phase=worldcup['Phase'].unique()
-print('Phase={0}'.format(len(Phase)))#phase只有两个信息，可以进行one-hot编码
+print('Phase={0}'.format(len(Phase)))
 
-
+# drop掉不相关信息
 worldcup=worldcup.drop(['Location','Normal_Time'],axis=1)
 print(worldcup.shape)
 
@@ -37,9 +37,8 @@ print(worldcup.shape)
 worldcup=worldcup.drop(['Team1','Team1_Continent','Team2','Team2_Continent'],axis=1)
 
 #以上是我们抽取出来的通用的特征
-# 现在我们要选取target,对于回归的任务，我们要忽略Win/loss/draw属性，Score是target
-#对于回归任务，删除Win/loss/draw属性，由于是回归任务，控球率的特征也没有用
-
+#选取Score作为target,并忽略Win/loss/draw属性
+#用不到的Match_result，Team1_Pass_Accuracy(%)，Team2_Pass_Accuracy(%)，Team1_Ball_Possession(%)，Team2_Ball_Possession(%)
 worldcup=worldcup.drop(['Match_result','Team1_Pass_Accuracy(%)','Team2_Pass_Accuracy(%)','Team1_Ball_Possession(%)','Team2_Ball_Possession(%)',],axis=1)
 
 print(worldcup.columns)
@@ -58,7 +57,7 @@ target=['Total_Scores']
 print(worldcup.head(5))
 x=worldcup[featrues].values
 y=worldcup[target].values
-#为了评价模型的性能，我们将数据分成训练集和测试集，用测试集评价模型
+#将数据分成训练集和测试集，用测试集评价模型
 x_train, x_test,y_train,y_test= train_test_split(x,y,test_size=0.2,random_state=1)
 #使用sklearn库构建模型
 
@@ -67,8 +66,9 @@ x_train, x_test,y_train,y_test= train_test_split(x,y,test_size=0.2,random_state=
 lr = linear_model.LinearRegression().fit(x_train,y_train)
 y_predict=lr.predict(x_test)
 print(lr.score(x_test, y_test))
+# print model
 p1=plt.scatter(range(len(x_test)), y_test,  color='black')
-#用predic预测，这里预测输入x对应的值，进行画线
+#用predict预测，这里预测输入x对应的值，进行画线
 p2=plt.plot(range(len(x_test)), y_predict, color='red', linewidth=1)
 plt.legend(["predict", "true"], loc='upper right')
 plt.title('Ordinary Regression')
@@ -89,7 +89,7 @@ clf = Ridge(alpha=.5)
 clf.fit(x_train,y_train)
 y_predict=clf.predict(x_test)
 p1=plt.scatter(range(len(x_test)), y_test,  color='black')
-#用predic预测，这里预测输入x对应的值，进行画线
+#用predict预测，这里预测输入x对应的值，进行画线
 p2=plt.plot(range(len(x_test)), y_predict, color='red', linewidth=1)
 plt.legend(["predict", "true"], loc='upper right')
 plt.title('Ridge Regression')
