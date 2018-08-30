@@ -40,7 +40,6 @@ worldcup=worldcup.drop(['Team1','Team1_Continent','Team2','Team2_Continent'],axi
 worldcup=worldcup.drop(['Match_result','Team1_Pass_Accuracy(%)','Team2_Pass_Accuracy(%)','Team1_Ball_Possession(%)','Team2_Ball_Possession(%)',],axis=1)
 
 print(worldcup.columns)
-#利用pandas进行one-hot编码
 worldcup=pd.get_dummies(worldcup,prefix='Phase')
 print(worldcup.shape)
 
