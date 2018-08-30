@@ -46,13 +46,8 @@ print(worldcup.columns)
 worldcup=pd.get_dummies(worldcup,prefix='Phase')
 print(worldcup.shape)
 
-featrues=['Team1_Attempts', 'Team1_Corners', 'Team1_Offsides',
-        'Team1_Distance_Covered',
-       'Team1_Ball_Recovered', 'Team1_Yellow_Card', 'Team1_Red_Card',
-       'Team1_Fouls', 'Team2_Attempts', 'Team2_Corners', 'Team2_Offsides',
-       'Team2_Distance_Covered', 'Team2_Ball_Recovered', 'Team2_Yellow_Card',
-       'Team2_Red_Card', 'Team2_Fouls',
-       'Phase_Group', 'Phase_Knockout']
+featrues=['Team1_Attempts', 'Team1_Corners', 'Team1_Distance_Covered',
+          'Team2_Attempts', 'Team2_Corners', 'Team2_Distance_Covered']
 target=['Total_Scores']
 print(worldcup.head(5))
 x=worldcup[featrues].values
