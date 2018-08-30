@@ -6,21 +6,10 @@ Created on Sat Aug 11 13:27:20 2018
 """
 
 import pandas as pd
-import numpy as np
-from sklearn.preprocessing import Imputer
-from sklearn.base import BaseEstimator, TransformerMixin
-from sklearn.pipeline import Pipeline
-from sklearn.preprocessing import StandardScaler
-from sklearn import preprocessing
-from sklearn.pipeline import FeatureUnion
-from sklearn.metrics import classification_report
-##################
 import matplotlib.pyplot as plt
 from sklearn import linear_model
 from sklearn.model_selection import train_test_split
-from sklearn import linear_model
 from sklearn.metrics import mean_squared_error, r2_score
-from sklearn.preprocessing import OneHotEncoder
 
 traffic=pd.read_csv('traffic_flow_data.csv')
 print(traffic.head(5))
