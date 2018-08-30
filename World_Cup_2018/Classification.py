@@ -37,6 +37,7 @@ worldcup=worldcup.drop(['Team1','Team1_Continent','Team1_Corners','Team1_Offside
 worldcup=worldcup.drop(['Total_Scores'],axis=1)
 
 #将target转换成数值型的label
+#Convert target into number label
 le =preprocessing.LabelEncoder()
 result=worldcup['Match_result'].unique()
 le.fit(result)
