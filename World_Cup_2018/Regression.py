@@ -44,12 +44,12 @@ worldcup=pd.get_dummies(worldcup,prefix='Phase')
 print(worldcup.shape)
 
 # Selection useful columns for regression
-featrues=['Team1_Attempts', 'Team1_Corners', 'Team1_Distance_Covered',
+features=['Team1_Attempts', 'Team1_Corners', 'Team1_Distance_Covered',
           'Team2_Attempts', 'Team2_Corners', 'Team2_Distance_Covered']
 target=['Total_Scores']
 print('Head 5:')
 print(worldcup.head(5))
-x=worldcup[featrues].values
+x=worldcup[features].values
 y=worldcup[target].values
 
 # Split the dataset into training dataset and testing dataset
