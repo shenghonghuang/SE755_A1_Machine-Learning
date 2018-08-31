@@ -16,7 +16,7 @@ columns=data.columns
 print(columns)
 
 
-features=['Temperature', 'Humidity', 'Light', 'CO2', 'HumidityRatio']
+features=['Temperature', 'Humidity', 'Light', 'HumidityRatio']
 target=['Occupancy']
 x=data[features].values
 y=data[target].values
