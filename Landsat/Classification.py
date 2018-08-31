@@ -20,7 +20,7 @@ x=lantsat.loc[:,range(36)].values
 y=lantsat[[36]].values
 
 
-#为了评价模型的性能，我们将数据分成训练集和测试集，用测试集评价模型
+# Split the dataset into training dataset and testing dataset
 x_train, x_test,y_train,y_test= train_test_split(x,y,test_size=0.2,random_state=1)
 # #===================Perceptron=========================
 from sklearn.multioutput import MultiOutputClassifier
