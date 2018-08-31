@@ -20,6 +20,7 @@ features=['Light', 'CO2']
 target=['Occupancy']
 x=data[features].values
 y=data[target].values
+# Split the dataset into training dataset and testing dataset
 x_train, x_test,y_train,y_test= train_test_split(x,y,test_size=0.2,random_state=1)
 
 #===================Perceptron=========================
