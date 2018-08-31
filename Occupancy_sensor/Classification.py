@@ -16,7 +16,7 @@ columns=data.columns
 print(columns)
 
 
-features=['Temperature', 'Humidity', 'Light', 'HumidityRatio']
+features=['Light', 'CO2']
 target=['Occupancy']
 x=data[features].values
 y=data[target].values
@@ -35,7 +35,6 @@ print('Matthews correlation coefficient (MCC): %.2f' % matthews_corrcoef(y_test,
 print('Zero-one classification loss: %.2f' % zero_one_loss(y_test,y_pred))
 #===================SVM=========================
 from sklearn import svm
-#调用SVC()
 clf = svm.SVC()
 y_pred = clf.fit(x_train, y_train).predict(x_test)
 print('SVM:')
