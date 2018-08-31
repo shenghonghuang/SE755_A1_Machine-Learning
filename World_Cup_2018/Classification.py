@@ -9,6 +9,7 @@ Created on Wed Aug 22 16:50:29 2018
 import pandas as pd
 from sklearn import preprocessing
 from sklearn.metrics import classification_report
+from sklearn.metrics import accuracy_score, hamming_loss, jaccard_similarity_score, matthews_corrcoef, zero_one_loss
 from sklearn.model_selection import train_test_split
 from sklearn.utils import shuffle
 pd.set_option('max_colwidth',200)
@@ -73,6 +74,11 @@ multi_target_ppn = MultiOutputClassifier(ppn)  # 构建多输出多分类器
 y_pred = multi_target_ppn.fit(x_train, y_train).predict(x_test)
 print('Perceptron')
 print(classification_report(y_test,y_pred))
+print('Accuracy classification score: %.2f' % accuracy_score(y_test,y_pred))
+print('Average Hamming loss: %.2f' % hamming_loss(y_test,y_pred))
+print('Jaccard similarity coefficient score: %.2f' % jaccard_similarity_score(y_test,y_pred))
+print('Matthews correlation coefficient (MCC): %.2f' % matthews_corrcoef(y_test,y_pred))
+print('Zero-one classification loss: %.2f' % zero_one_loss(y_test,y_pred))
 
 #===================SVM=========================
 from sklearn.multioutput import MultiOutputClassifier
@@ -83,6 +89,11 @@ multi_target_clf = MultiOutputClassifier(clf)  # 构建多输出多分类器
 y_pred = multi_target_clf.fit(x_train, y_train).predict(x_test)
 print('SVM:')
 print(classification_report(y_test,y_pred))
+print('Accuracy classification score: %.2f' % accuracy_score(y_test,y_pred))
+print('Average Hamming loss: %.2f' % hamming_loss(y_test,y_pred))
+print('Jaccard similarity coefficient score: %.2f' % jaccard_similarity_score(y_test,y_pred))
+print('Matthews correlation coefficient (MCC): %.2f' % matthews_corrcoef(y_test,y_pred))
+print('Zero-one classification loss: %.2f' % zero_one_loss(y_test,y_pred))
 
 #===================Decision Trees=========================
 from sklearn.multioutput import MultiOutputClassifier
@@ -92,6 +103,11 @@ multi_target_clf = MultiOutputClassifier(clf)  # 构建多输出多分类器
 y_pred = multi_target_clf.fit(x_train, y_train).predict(x_test)
 print('Decision Tree:')
 print(classification_report(y_test,y_pred))
+print('Accuracy classification score: %.2f' % accuracy_score(y_test,y_pred))
+print('Average Hamming loss: %.2f' % hamming_loss(y_test,y_pred))
+print('Jaccard similarity coefficient score: %.2f' % jaccard_similarity_score(y_test,y_pred))
+print('Matthews correlation coefficient (MCC): %.2f' % matthews_corrcoef(y_test,y_pred))
+print('Zero-one classification loss: %.2f' % zero_one_loss(y_test,y_pred))
 
 #=================== Nearest neighbour classifier=========================
 from sklearn.multioutput import MultiOutputClassifier
@@ -101,6 +117,11 @@ multi_target_clf = MultiOutputClassifier(clf)  # 构建多输出多分类器
 y_pred = multi_target_clf.fit(x_train, y_train).predict(x_test)
 print('Nearest Neighbour classifier:')
 print(classification_report(y_test,y_pred))
+print('Accuracy classification score: %.2f' % accuracy_score(y_test,y_pred))
+print('Average Hamming loss: %.2f' % hamming_loss(y_test,y_pred))
+print('Jaccard similarity coefficient score: %.2f' % jaccard_similarity_score(y_test,y_pred))
+print('Matthews correlation coefficient (MCC): %.2f' % matthews_corrcoef(y_test,y_pred))
+print('Zero-one classification loss: %.2f' % zero_one_loss(y_test,y_pred))
 
 #===================  Naïve Bayes classifier=========================
 from sklearn.multioutput import MultiOutputClassifier
@@ -110,4 +131,8 @@ multi_target_clf = MultiOutputClassifier(clf)  # 构建多输出多分类器
 y_pred = multi_target_clf.fit(x_train, y_train).predict(x_test)
 print('Naive Bayes classifier:')
 print(classification_report(y_test,y_pred))
-
+print('Accuracy classification score: %.2f' % accuracy_score(y_test,y_pred))
+print('Average Hamming loss: %.2f' % hamming_loss(y_test,y_pred))
+print('Jaccard similarity coefficient score: %.2f' % jaccard_similarity_score(y_test,y_pred))
+print('Matthews correlation coefficient (MCC): %.2f' % matthews_corrcoef(y_test,y_pred))
+print('Zero-one classification loss: %.2f' % zero_one_loss(y_test,y_pred))
