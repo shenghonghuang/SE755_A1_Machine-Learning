@@ -44,7 +44,7 @@ worldcup=pd.get_dummies(worldcup,prefix=['Phase'])
 print(worldcup.head(5))
 print(worldcup.columns)
 
-features=['Team1_Yellow_Card','Team1_Red_Card', 'Team1_Fouls','Team2_Yellow_Card','Team2_Red_Card', 'Team2_Fouls']
+features=['Team2_Yellow_Card','Team2_Red_Card', 'Team2_Fouls']
 target=['Match_result']
 
 worldcup = shuffle(worldcup)
