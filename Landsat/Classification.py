@@ -26,7 +26,7 @@ x_train, x_test,y_train,y_test= train_test_split(x,y,test_size=0.2,random_state=
 from sklearn.multioutput import MultiOutputClassifier
 from sklearn.linear_model import Perceptron
 ppn = Perceptron(n_iter=40, eta0=0.1, random_state=0)  #y=w.x+b
-multi_target_ppn = MultiOutputClassifier(ppn)  # 构建多输出多分类器
+multi_target_ppn = MultiOutputClassifier(ppn) 
 y_pred = multi_target_ppn.fit(x_train, y_train).predict(x_test)
 print('Perceptron:')
 print(classification_report(y_test,y_pred))
@@ -41,7 +41,7 @@ from sklearn.multioutput import MultiOutputClassifier
 from sklearn import svm
 #调用SVC()
 clf = svm.SVC()
-multi_target_clf = MultiOutputClassifier(clf)  # 构建多输出多分类器
+multi_target_clf = MultiOutputClassifier(clf)
 y_pred = multi_target_clf.fit(x_train, y_train).predict(x_test)
 print('SVM:')
 print(classification_report(y_test,y_pred))
@@ -55,7 +55,7 @@ print('Zero-one classification loss: %.2f' % zero_one_loss(y_test,y_pred))
 from sklearn.multioutput import MultiOutputClassifier
 from sklearn import tree
 clf = tree.DecisionTreeClassifier()
-multi_target_clf = MultiOutputClassifier(clf)  # 构建多输出多分类器
+multi_target_clf = MultiOutputClassifier(clf) 
 y_pred = multi_target_clf.fit(x_train, y_train).predict(x_test)
 print('Desicion Tree:')
 print(classification_report(y_test,y_pred))
@@ -69,7 +69,7 @@ print('Zero-one classification loss: %.2f' % zero_one_loss(y_test,y_pred))
 from sklearn.multioutput import MultiOutputClassifier
 from sklearn.neighbors import KNeighborsClassifier
 clf = KNeighborsClassifier()
-multi_target_clf = MultiOutputClassifier(clf)  # 构建多输出多分类器
+multi_target_clf = MultiOutputClassifier(clf) 
 y_pred = multi_target_clf.fit(x_train, y_train).predict(x_test)
 print('Nearest neighbour classifier')
 print(classification_report(y_test,y_pred))
@@ -83,7 +83,7 @@ print('Zero-one classification loss: %.2f' % zero_one_loss(y_test,y_pred))
 from sklearn.multioutput import MultiOutputClassifier
 from sklearn.naive_bayes import GaussianNB
 clf = GaussianNB()
-multi_target_clf = MultiOutputClassifier(clf)  # 构建多输出多分类器
+multi_target_clf = MultiOutputClassifier(clf)
 y_pred = multi_target_clf.fit(x_train, y_train).predict(x_test)
 print('Naive Bayes classifier')
 print(classification_report(y_test,y_pred))
