@@ -1,0 +1,1 @@
+The data set records the traffic flow of different segments at different time periods. Therefore, all time periods should be counted to obtain statistical results in general.
