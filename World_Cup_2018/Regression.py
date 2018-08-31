@@ -55,6 +55,7 @@ y=worldcup[target].values
 # Split the dataset into training dataset and testing dataset
 x_train, x_test,y_train,y_test= train_test_split(x,y,test_size=0.2,random_state=1)
 
+
 # Use SK-Learn generate models
 #=======================Ordinary Regression============
 
@@ -69,14 +70,13 @@ p2=plt.plot(range(len(x_test)), y_predict, color='red', linewidth=1)
 plt.legend(["predict", "true"], loc='upper right')
 plt.title('Ordinary Regression')
 plt.show()
-
 print('_________________###################____________________')
 print('Explained variance regression score function: %.2f' % explained_variance_score(y_test, y_predict))
 print('Mean absolute error regression loss: %.2f' % mean_absolute_error(y_test, y_predict))
 print("Mean squared error regression loss: %.2f" % mean_squared_error(y_test, y_predict))
 print('Mean squared logarithmic error regression loss: %.2f' % mean_squared_log_error(y_test, y_predict))
 print('Median absolute error regression loss: %.2f' % median_absolute_error(y_test, y_predict))
-print('R^2 (coefficient of determination) regression score function.: %.2f' % r2_score(y_test, y_predict))
+print('R^2 (coefficient of determination) regression score function: %.2f' % r2_score(y_test, y_predict))
 print('******************************************************* ')
 
 #========================== Ridge Regression=================
@@ -98,6 +98,5 @@ print('Mean absolute error regression loss: %.2f' % mean_absolute_error(y_test, 
 print("Mean squared error regression loss: %.2f" % mean_squared_error(y_test, y_predict))
 print('Mean squared logarithmic error regression loss: %.2f' % mean_squared_log_error(y_test, y_predict))
 print('Median absolute error regression loss: %.2f' % median_absolute_error(y_test, y_predict))
-print('R^2 (coefficient of determination) regression score function.: %.2f' % r2_score(y_test, y_predict))
+print('R^2 (coefficient of determination) regression score function: %.2f' % r2_score(y_test, y_predict))
 print('******************************************************* ')
-
