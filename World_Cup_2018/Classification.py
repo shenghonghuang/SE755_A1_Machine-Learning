@@ -60,17 +60,17 @@ print(worldcup.columns)
 
 features=['Team1_Attempts', 'Team2_Attempts', 'Phase_Group','Phase_Knockout']
 target=['Match_result']
-#打乱顺序
+
 worldcup = shuffle(worldcup)
 x=worldcup[features].values
 y=worldcup[target].values
-#为了评价模型的性能，我们将数据分成训练集和测试集，用测试集评价模型
+# Split the dataset into training dataset and testing dataset
 x_train, x_test,y_train,y_test= train_test_split(x,y,test_size=0.2,random_state=1)
 #===================Perceptron=========================
 from sklearn.multioutput import MultiOutputClassifier
 from sklearn.linear_model import Perceptron
 ppn = Perceptron(n_iter=40, eta0=0.1, random_state=0)  #y=w.x+b
-multi_target_ppn = MultiOutputClassifier(ppn)  # 构建多输出多分类器
+multi_target_ppn = MultiOutputClassifier(ppn)
 y_pred = multi_target_ppn.fit(x_train, y_train).predict(x_test)
 print('Perceptron')
 print(classification_report(y_test,y_pred))
@@ -85,7 +85,7 @@ from sklearn.multioutput import MultiOutputClassifier
 from sklearn import svm
 #调用SVC()
 clf = svm.SVC()
-multi_target_clf = MultiOutputClassifier(clf)  # 构建多输出多分类器
+multi_target_clf = MultiOutputClassifier(clf)  # Create Multi Output Classifier
 y_pred = multi_target_clf.fit(x_train, y_train).predict(x_test)
 print('SVM:')
 print(classification_report(y_test,y_pred))
@@ -99,7 +99,7 @@ print('Zero-one classification loss: %.2f' % zero_one_loss(y_test,y_pred))
 from sklearn.multioutput import MultiOutputClassifier
 from sklearn import tree
 clf = tree.DecisionTreeClassifier()
-multi_target_clf = MultiOutputClassifier(clf)  # 构建多输出多分类器
+multi_target_clf = MultiOutputClassifier(clf)  # Create Multi Output Classifier
 y_pred = multi_target_clf.fit(x_train, y_train).predict(x_test)
 print('Decision Tree:')
 print(classification_report(y_test,y_pred))
