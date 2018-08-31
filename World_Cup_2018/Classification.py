@@ -32,12 +32,8 @@ worldcup=worldcup.drop(['Location','Normal_Time'],axis=1)
 print(worldcup.shape)
 
 # Drop irrelevant columns
-worldcup=worldcup.drop(['Team1','Team1_Continent','Team1_Corners','Team1_Offsides','Team1_Ball_Possession(%)','Team1_Pass_Accuracy(%)','Team1_Distance_Covered','Team1_Ball_Recovered','Team1_Yellow_Card','Team1_Red_Card','Team1_Fouls','Team2','Team2_Continent','Team2_Corners','Team2_Offsides','Team2_Ball_Possession(%)','Team2_Pass_Accuracy(%)','Team2_Distance_Covered','Team2_Ball_Recovered','Team2_Yellow_Card','Team2_Red_Card','Team2_Fouls'],axis=1)
+worldcup=worldcup.drop(['Team1','Team1_Continent','Team1_Corners','Team1_Offsides','Team1_Ball_Possession(%)','Team1_Pass_Accuracy(%)','Team1_Distance_Covered','Team1_Ball_Recovered','Team2','Team2_Continent','Team2_Corners','Team2_Offsides','Team2_Ball_Possession(%)','Team2_Pass_Accuracy(%)','Team2_Distance_Covered','Team2_Ball_Recovered','Total_Scores'],axis=1)
 
-# Drop irrelevant column for features
-worldcup=worldcup.drop(['Total_Scores'],axis=1)
-
-#将target转换成数值型的label
 #Convert target into number label
 le =preprocessing.LabelEncoder()
 result=worldcup['Match_result'].unique()
@@ -48,17 +44,7 @@ worldcup=pd.get_dummies(worldcup,prefix=['Phase'])
 print(worldcup.head(5))
 print(worldcup.columns)
 
-'''features=['Team1_Attempts', 'Team1_Corners', 'Team1_Offsides',
-       'Team1_Ball_Possession(%)', 'Team1_Pass_Accuracy(%)',
-       'Team1_Distance_Covered', 'Team1_Ball_Recovered', 'Team1_Yellow_Card',
-       'Team1_Red_Card', 'Team1_Fouls', 'Team2_Attempts', 'Team2_Corners',
-       'Team2_Offsides', 'Team2_Ball_Possession(%)', 'Team2_Pass_Accuracy(%)',
-       'Team2_Distance_Covered', 'Team2_Ball_Recovered', 'Team2_Yellow_Card',
-       'Team2_Red_Card', 'Team2_Fouls',  'Phase_Group',
-       'Phase_Knockout']
-'''
-
-features=['Team1_Attempts', 'Team2_Attempts', 'Phase_Group','Phase_Knockout']
+features=['Team1_Yellow_Card','Team1_Red_Card', 'Team1_Fouls','Team2_Yellow_Card','Team2_Red_Card', 'Team2_Fouls']
 target=['Match_result']
 
 worldcup = shuffle(worldcup)
@@ -113,7 +99,7 @@ print('Zero-one classification loss: %.2f' % zero_one_loss(y_test,y_pred))
 from sklearn.multioutput import MultiOutputClassifier
 from sklearn.neighbors import KNeighborsClassifier
 clf = KNeighborsClassifier()
-multi_target_clf = MultiOutputClassifier(clf)  # 构建多输出多分类器
+multi_target_clf = MultiOutputClassifier(clf) # Create Multi Output Classifier
 y_pred = multi_target_clf.fit(x_train, y_train).predict(x_test)
 print('Nearest Neighbour classifier:')
 print(classification_report(y_test,y_pred))
@@ -127,7 +113,7 @@ print('Zero-one classification loss: %.2f' % zero_one_loss(y_test,y_pred))
 from sklearn.multioutput import MultiOutputClassifier
 from sklearn.naive_bayes import GaussianNB
 clf = GaussianNB()
-multi_target_clf = MultiOutputClassifier(clf)  # 构建多输出多分类器
+multi_target_clf = MultiOutputClassifier(clf)  # Create Multi Output Classifier
 y_pred = multi_target_clf.fit(x_train, y_train).predict(x_test)
 print('Naive Bayes classifier:')
 print(classification_report(y_test,y_pred))
