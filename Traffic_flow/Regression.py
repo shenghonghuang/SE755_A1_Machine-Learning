@@ -9,15 +9,15 @@ import pandas as pd
 import matplotlib.pyplot as plt
 from sklearn import linear_model
 from sklearn.model_selection import train_test_split
-from sklearn.metrics import mean_squared_error, r2_score
+from sklearn.metrics import mean_squared_error, r2_score, explained_variance_score, mean_absolute_error, mean_squared_log_error, median_absolute_error
 
 traffic=pd.read_csv('traffic_flow_data.csv')
 print(traffic.head(5))
 columns=traffic.columns
 # select the features column
-features=['Segment_45(t)']
-#target=features[-1]
-target=['Segment23_(t+1)']
+features=columns[0:-1]
+# select the target column
+target=features[-1]
 
 x=traffic[features].values
 y=traffic[target].values
