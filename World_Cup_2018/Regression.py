@@ -47,7 +47,7 @@ print(worldcup.shape)
 featrues=['Team1_Attempts', 'Team1_Corners', 'Team1_Distance_Covered',
           'Team2_Attempts', 'Team2_Corners', 'Team2_Distance_Covered']
 target=['Total_Scores']
-print('Head 5')
+print('Head 5:')
 print(worldcup.head(5))
 x=worldcup[featrues].values
 y=worldcup[target].values
