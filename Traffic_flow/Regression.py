@@ -14,7 +14,7 @@ from sklearn.metrics import mean_squared_error, r2_score
 traffic=pd.read_csv('traffic_flow_data.csv')
 print(traffic.head(5))
 columns=traffic.columns
-#features=columns[0:-1]#除去最后一列，前面的做特征
+# select the features column
 features=['Segment_45(t)']
 #target=features[-1]
 target=['Segment23_(t+1)']
